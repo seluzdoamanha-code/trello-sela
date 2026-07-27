@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello SELA - Campos Personalizados</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="icon-placeholder">TS</div>
+                <div>
+                    <h1>Detalhes do Assistido</h1>
+                    <p id="trello-card-title">Carregando cartão do Trello...</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <form id="custom-fields-form">
+                <div class="form-group">
+                    <label for="nomeCompleto">Nome Completo</label>
+                    <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite o nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="nomeCurto">Nome Curto (Apelido)</label>
+                    <input type="text" id="nomeCurto" name="nomeCurto" placeholder="Como gosta de ser chamado">
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                </div>
+
+                <button type="submit" id="save-btn">Salvar Alterações</button>
+                <p id="status-message"></p>
+            </form>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
