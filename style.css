@@ -132,3 +132,9 @@ button:active {
 
 .success { color: #38a169; }
 .error { color: #e53e3e; }
+.sela-logo {
+    height: 50px; /* Você pode aumentar ou diminuir esse número se quiser */
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px; /* Opcional: deixa as bordinhas levemente arredondadas */
+}
