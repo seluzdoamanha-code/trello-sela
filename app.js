@@ -17,12 +17,13 @@ function showStatus(msg, type = '') {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+// Inicialização imediata (Forçada)
+(async function iniciarSistema() {
     const cardTitleEl = document.getElementById('trello-card-title');
     
     try {
         if (!window.supabase) {
-            throw new Error('A biblioteca do banco de dados foi bloqueada pelo seu navegador/celular. Verifique se tem algum Adblock ou antivírus ativado.');
+            throw new Error('Supabase bloqueado (Adblock).');
         }
 
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -36,9 +37,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         cardTitleEl.textContent = `Cartão ID: ${cardId}`;
         await carregarDados(cardId);
     } catch (err) {
-        cardTitleEl.textContent = 'ERRO FATAL: ' + err.message;
+        cardTitleEl.textContent = 'ERRO: ' + err.message;
     }
-});
+})();
 
 async function carregarDados(cardId) {
     try {
