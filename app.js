@@ -2,7 +2,7 @@
 const SUPABASE_URL = 'https://aymdooyafimliiggxeqs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5bWRvb3lhZmltbGlpZ2d4ZXFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUxMDUxNDksImV4cCI6MjEwMDY4MTE0OX0.-NBhiyGDlrWq4QKNLx9Ll5GlIk0mV_rBWnr0vdbUCOU';
 
-let supabase;
+let db; // <--- Nome alterado para não dar conflito!
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,16 +17,14 @@ function showStatus(msg, type = '') {
     }
 }
 
-// Inicialização imediata (Forçada)
 (async function iniciarSistema() {
     const cardTitleEl = document.getElementById('trello-card-title');
-    
     try {
         if (!window.supabase) {
             throw new Error('Supabase bloqueado (Adblock).');
         }
 
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const cardId = getQueryParam('card_id');
         
         if (!cardId) {
@@ -43,7 +41,7 @@ function showStatus(msg, type = '') {
 
 async function carregarDados(cardId) {
     try {
-        const { data, error } = await supabase.from('assistidos').select('*').eq('trello_card_id', cardId).single();
+        const { data, error } = await db.from('assistidos').select('*').eq('trello_card_id', cardId).single();
         if (error && error.code !== 'PGRST116') throw error;
         
         if (data) {
@@ -74,7 +72,7 @@ document.getElementById('custom-fields-form').addEventListener('submit', async (
     };
     
     try {
-        const { error } = await supabase.from('assistidos').upsert(dados, { onConflict: 'trello_card_id' });
+        const { error } = await db.from('assistidos').upsert(dados, { onConflict: 'trello_card_id' });
         if (error) throw error;
         showStatus('Alterações salvas com sucesso!', 'success');
     } catch (err) {
